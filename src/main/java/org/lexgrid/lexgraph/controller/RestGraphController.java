@@ -1,5 +1,6 @@
 package org.lexgrid.lexgraph.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +29,19 @@ public class RestGraphController {
      * @param id
      * @return
      */
-    @GetMapping("/{vertexCollection}/{id}")
-    public Iterable<LexVertex> findByKey(@PathVariable @NotNull String vertexCollection, @PathVariable @NotNull String key) {
-        log.debug("Load the article of id: {}", key);
-        return graphingService.resolveAllInBoundEntitiesForCollectionAndRoot(null,null, null);
+    @GetMapping("/{graphdb}/{vertexCollection}/{key}")
+    //@GetMapping("/some/text")
+    public Iterable<LexVertex> findByKey(@PathVariable @NotNull String graphdb,@PathVariable @NotNull String vertexCollection, @PathVariable @NotNull String key) {
+     //   log.debug("Load the article of id: {}", key);
+     //   return graphingService.resolveAllInBoundEntitiesForCollectionAndRoot(null,null, null);
+        List<LexVertex> iterable = new ArrayList<LexVertex>();
+        iterable.add(new LexVertex("ACode", "aNamespace"));
+        iterable.add(new LexVertex("notherCode", "NotherNamespace"));
+        return iterable;
     }
+
+	public LexVertexService getGraphingService() {
+		return graphingService;
+	}
 
 }
