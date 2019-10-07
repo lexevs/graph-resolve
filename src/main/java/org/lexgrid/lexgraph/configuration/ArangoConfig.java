@@ -3,6 +3,7 @@ package org.lexgrid.lexgraph.configuration;
 import org.springframework.context.annotation.Configuration;
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDB.Builder;
+import com.arangodb.ArangoDatabase;
 import com.arangodb.Protocol;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
@@ -23,6 +24,19 @@ public class ArangoConfig implements ArangoConfiguration {
  
   @Override
   public String database() {
-    return "NCI_THESAURUS";
+    return "NCI_Thesaurus";
   }
+  
+  public ArangoDatabase getGraphDatabases(){
+	  return arango().build().db(database());
+  }
+  
+  public ArangoDatabase getGraphDatabaseForName(String name){
+	  return arango().build().db(name);
+  }
+  
+  public Iterable<String> getAllGraphDatabases(){
+	  return arango().build().getDatabases();
+  }
+  
 }

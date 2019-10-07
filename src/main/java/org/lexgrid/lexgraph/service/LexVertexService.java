@@ -19,8 +19,8 @@ public class LexVertexService {
 	     * Find all saved lexVertexs so far
 	     * @return
 	     */
-	    public Iterable<LexVertex> resolveAllInBoundEntitiesForCollectionAndRoot(String code, String collectionName, String graphName) {
-	        return lexVertexRepository.getFullVertexInboundResolveByCodeAndAssociation(code, collectionName, graphName);
+	    public Iterable<LexVertex> resolveAllInBoundEntitiesForCollectionAndRoot(String graphName, String code, String collectionName) {
+	        return lexVertexRepository.getFullVertexInboundResolveByCodeAndAssociation(graphName, collectionName + "/" + code);
 	    }
 
 

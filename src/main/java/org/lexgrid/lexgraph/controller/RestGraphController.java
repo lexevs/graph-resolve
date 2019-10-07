@@ -39,6 +39,12 @@ public class RestGraphController {
         iterable.add(new LexVertex("notherCode", "NotherNamespace"));
         return iterable;
     }
+    
+    @GetMapping("/graphs/{graphName}/{vertexCollection}/{key}")
+    public Iterable<LexVertex> findByKeyAndCollection(@PathVariable @NotNull String graphName, @PathVariable @NotNull String key, @PathVariable @NotNull String vertexCollection) {
+           log.debug("Load the article of id: {}", key);
+           return graphingService.resolveAllInBoundEntitiesForCollectionAndRoot(graphName, key, vertexCollection);
+       }
 
 	public LexVertexService getGraphingService() {
 		return graphingService;
