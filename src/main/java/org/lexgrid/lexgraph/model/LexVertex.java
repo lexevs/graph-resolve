@@ -2,8 +2,6 @@
 
 import org.springframework.data.annotation.Id;
 
-import com.arangodb.entity.DocumentField;
-import com.arangodb.entity.DocumentField.Type;
 import com.arangodb.springframework.annotation.Document;
 
 @Document("LexVertex")

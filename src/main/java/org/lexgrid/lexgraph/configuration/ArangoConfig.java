@@ -27,16 +27,12 @@ public class ArangoConfig implements ArangoConfiguration {
     return "NCI_Thesaurus";
   }
   
-  public ArangoDatabase getGraphDatabases(){
-	  return arango().build().db(database());
+  public Iterable<String> getGraphDatabases(){
+	  return arango().build().getDatabases();
   }
   
   public ArangoDatabase getGraphDatabaseForName(String name){
 	  return arango().build().db(name);
-  }
-  
-  public Iterable<String> getAllGraphDatabases(){
-	  return arango().build().getDatabases();
   }
   
 }
