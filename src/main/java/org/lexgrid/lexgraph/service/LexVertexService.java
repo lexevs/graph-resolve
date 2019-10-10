@@ -10,18 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class LexVertexService {
 
-	  @Autowired
-	    private LexVertexRepository lexVertexRepository;
 
-
-
-	    /**
-	     * 
-	     * @return
-	     */
-	    public Iterable<LexVertex> resolveAllInBoundEntitiesForCollectionAndRoot(String graphName, String code, String collectionName) {
-	        return lexVertexRepository.getFullVertexInboundResolveByCodeAndAssociation(graphName, collectionName + "/" + code);
-	    }
+//	  	@Autowired
+//	    private LexVertexRepository lexVertexRepository;
+//
+//
+//
+//	    /**
+//	     * 
+//	     * @return
+//	     */
+//	    public Iterable<LexVertex> resolveAllInBoundEntitiesForCollectionAndRoot(String graphName, String code, String collectionName) {
+//	        return lexVertexRepository.getFullVertexInboundResolveByCodeAndAssociation(graphName, collectionName + "/" + code);
+//	    }
 
 
 }

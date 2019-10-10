@@ -10,10 +10,10 @@ import com.arangodb.springframework.config.ArangoConfiguration;
  
 @Configuration
 @EnableArangoRepositories(basePackages = { "org.lexgrid.lexgraph.repositories" })
-public class ArangoConfig implements ArangoConfiguration {
+public interface ArangoConfig extends ArangoConfiguration {
 	
   @Override
-  public Builder arango() {;
+  default public Builder arango() {;
     ArangoDB.Builder arango = new ArangoDB.Builder()
             .host("127.0.0.1", 8529)
             .useProtocol(Protocol.HTTP_JSON)
@@ -23,16 +23,9 @@ public class ArangoConfig implements ArangoConfiguration {
   }
  
   @Override
-  public String database() {
+  default public String database() {
     return "NCI_Thesaurus";
   }
   
-  public Iterable<String> getGraphDatabases(){
-	  return arango().build().getDatabases();
-  }
-  
-  public ArangoDatabase getGraphDatabaseForName(String name){
-	  return arango().build().db(name);
-  }
   
 }
