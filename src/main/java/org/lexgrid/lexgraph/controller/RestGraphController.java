@@ -39,17 +39,13 @@ public class RestGraphController {
 	@GetMapping("/getInbound/{database}/{graph}/{code}")
 	public Iterable<LexVertex> getTraversedInboundGraphMembers(@PathVariable @NotNull String database,
 			@PathVariable @NotNull String graph, @PathVariable @NotNull String code) {
-
 		return graphingService.resolveAllInBoundEntitiesForGraphAndRoot(database, graph, code);
-
 	}
 
 	@GetMapping("/getOutbound/{database}/{graph}/{code}")
 	public Iterable<LexVertex> getTraverseOutboundGraphMembers(@PathVariable @NotNull String database,
 			@PathVariable @NotNull String graph, @PathVariable @NotNull String code) {
-
 		return graphingService.resolveAllOutBoundEntitiesForGraphAndRoot(database, graph, code);
-
 	}
 
 }

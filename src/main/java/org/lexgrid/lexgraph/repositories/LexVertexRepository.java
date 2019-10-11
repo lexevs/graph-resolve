@@ -12,7 +12,4 @@ public interface LexVertexRepository extends ArangoRepository<LexVertex, String>
 
     @Query("FOR v IN 1..10 INBOUND @id GRAPH @graph OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN {code: v._key, namespace: v.namespace}")
     Iterable<LexVertex> getFullVertexInboundResolveByCodeAndAssociation(@Param("graph") String graph, @Param("id") String id);
-
-    Iterable<LexVertex> findByCode(String code);
- 
 }

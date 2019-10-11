@@ -26,6 +26,5 @@ public interface ArangoConfig extends ArangoConfiguration {
   default public String database() {
     return "NCI_Thesaurus";
   }
-  
-  
+ 
 }
