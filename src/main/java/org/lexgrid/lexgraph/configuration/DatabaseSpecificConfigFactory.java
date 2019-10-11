@@ -1,18 +1,13 @@
 package org.lexgrid.lexgraph.configuration;
 
-import org.springframework.context.annotation.Configuration;
-
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
-import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 
-public class DatabaseSpecificConfigFactory  {
+public class DatabaseSpecificConfigFactory {
 
-	public ArangoConfiguration getArangoDataBaseConfigurationForName(String dbName){
-		
-		@Configuration
-		@EnableArangoRepositories(basePackages = { "org.lexgrid.lexgraph.repositories" })
+	public ArangoConfiguration getArangoDataBaseConfigurationForName(String dbName) {
+
 		class LocalArangoConfig implements ArangoConfig {
 
 			@Override
@@ -22,27 +17,18 @@ public class DatabaseSpecificConfigFactory  {
 
 		};
 		
-		LocalArangoConfig config = new LocalArangoConfig();
-		
-		return config;
+		return new LocalArangoConfig();
 	}
-	
-	public ArangoDB getArangoDriver(){
 
-		class LocalArangoConfig implements ArangoConfig {
-
-		};
+	public ArangoDB getArangoDriver() {
 		
-		LocalArangoConfig config = new LocalArangoConfig();
+		class LocalArangoConfig implements ArangoConfig {};
 		
-		return config.arango().build();
+		return new LocalArangoConfig().arango().build();
 	}
-	
-	
-	public ArangoDatabase getDbForDatabaseName(String dbName){
+
+	public ArangoDatabase getDbForDatabaseName(String dbName) {
 		return getArangoDataBaseConfigurationForName(dbName).arango().build().db(dbName);
 	}
-	
-	
 
 }

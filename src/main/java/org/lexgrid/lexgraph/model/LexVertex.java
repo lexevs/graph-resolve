@@ -10,7 +10,6 @@ public class LexVertex {
 		@Id
 		private String id;
 
-
 		private String code;
 
 		private String revision;
