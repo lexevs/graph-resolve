@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.http.HttpEntity;
 import org.lexgrid.lexgraph.exception.GraphDbNotFoundException;
+import org.lexgrid.lexgraph.exception.SystemMetadataNotFoundException;
 import org.lexgrid.lexgraph.exception.VertexNotFoundException;
 import org.lexgrid.lexgraph.model.GraphDatabase;
 import org.lexgrid.lexgraph.model.LexVertex;
@@ -51,6 +52,12 @@ public class RestGraphController {
 
 	@GetMapping("/databases")
 	public SystemMetadata getSystemMetadata() {
+		SystemMetadata sysMd = system.getSystemMetadata();
+		if(sysMd == null
+				|| sysMd.getDataBases() == null
+				|| !sysMd.getDataBases().iterator().hasNext()){
+			throw new SystemMetadataNotFoundException("No graph databases are found on this system");
+		}
 		return system.getSystemMetadata();
 	}
 
