@@ -2,6 +2,9 @@ package org.lexgrid.lexgraph.controller;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.http.HttpEntity;
+import org.lexgrid.lexgraph.exception.GraphDbNotFoundException;
+import org.lexgrid.lexgraph.exception.VertexNotFoundException;
 import org.lexgrid.lexgraph.model.GraphDatabase;
 import org.lexgrid.lexgraph.model.LexVertex;
 import org.lexgrid.lexgraph.model.SystemMetadata;
@@ -28,6 +31,21 @@ public class RestGraphController {
 
 	@GetMapping("/graphDbs/{graphDatabase}")
 	public GraphDatabase getGraphDataBaseMetaData(@PathVariable @NotNull String graphDatabase) {
+		GraphDatabase db; 
+		try {db = system.getGraphDatabaseShell(graphDatabase);
+		}
+		catch(com.arangodb.ArangoDBException a){
+			throw new GraphDbNotFoundException("Graph database \"" + graphDatabase + 
+					"\" not found or is lacking crucial elements for graph resolution."  +
+					" Database message: " + a.getErrorMessage());
+		}
+		if(db == null 
+				|| db.graphs == null
+				|| db.graphDbName == null
+				|| db.graphs.size() == 0 
+				|| db.graphDbName == "")
+			throw new GraphDbNotFoundException("Graph database  \"" + graphDatabase + 
+					"\" not found or is lacking crucial elements for graph resolution.");
 		return system.getGraphDatabaseShell(graphDatabase);
 	}
 
@@ -39,13 +57,21 @@ public class RestGraphController {
 	@GetMapping("/getInbound/{database}/{graph}/{code}")
 	public Iterable<LexVertex> getTraversedInboundGraphMembers(@PathVariable @NotNull String database,
 			@PathVariable @NotNull String graph, @PathVariable @NotNull String code) {
-		return graphingService.resolveAllInBoundEntitiesForGraphAndRoot(database, graph, code);
+		Iterable<LexVertex> list = graphingService.resolveAllInBoundEntitiesForGraphAndRoot(database, graph, code);
+		if(list == null || !list.iterator().hasNext()){
+			throw new VertexNotFoundException("Vertex not found or no inbound edges exist for entity code: " + code);
+		}
+		else{return list;}
 	}
 
 	@GetMapping("/getOutbound/{database}/{graph}/{code}")
 	public Iterable<LexVertex> getTraverseOutboundGraphMembers(@PathVariable @NotNull String database,
 			@PathVariable @NotNull String graph, @PathVariable @NotNull String code) {
-		return graphingService.resolveAllOutBoundEntitiesForGraphAndRoot(database, graph, code);
+		Iterable<LexVertex> list = graphingService.resolveAllOutBoundEntitiesForGraphAndRoot(database, graph, code);
+		if(list == null || !list.iterator().hasNext()){
+			throw new VertexNotFoundException("Vertex not found or no outbound edges exist for entity code: " + code);
+		}
+		else{return list;}
 	}
 
 }
