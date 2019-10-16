@@ -1,10 +1,12 @@
 package org.lexgrid.lexgraph.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.lexgrid.lexgraph.configuration.DatabaseSpecificConfigFactory;
 import org.lexgrid.lexgraph.model.LexVertex;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.arangodb.ArangoDBException;
@@ -21,7 +23,7 @@ public class LexVertexService {
 	static final String OUTBOUND_EDGES = "FOR v IN 1..10 OUTBOUND @id GRAPH @graph "
 			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
 
-	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database, String graph, String code) {
+	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database, String graph, String code) throws DataAccessException, Exception {
 		ArangoConfiguration config = new DatabaseSpecificConfigFactory()
 				.getArangoDataBaseConfigurationForName(database);
 		ArangoDatabase db = config.arango().build().db(database);
@@ -31,29 +33,12 @@ public class LexVertexService {
 		Map<String, Object> bindVars = new HashMap<String, Object>();
 		bindVars.put("id", collectionName + "/" + code);
 		bindVars.put("graph", graphEntity.name());
-		try {
-			return config.arangoTemplate().query(INBOUND_EDGES, bindVars, null, LexVertex.class).asListRemaining();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		} finally {
-			if (config != null) {
-				try {
-					config.arangoTemplate().driver().shutdown();
-				} catch (ArangoDBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
+		List<LexVertex> list = config.arangoTemplate().query(INBOUND_EDGES, bindVars, null, LexVertex.class).asListRemaining();
+		config.arangoTemplate().driver().shutdown();
+		return list;
 	}
 
-	public Iterable<LexVertex> resolveAllOutBoundEntitiesForGraphAndRoot(String database, String graph, String code) {
+	public Iterable<LexVertex> resolveAllOutBoundEntitiesForGraphAndRoot(String database, String graph, String code) throws DataAccessException, Exception {
 		ArangoConfiguration config = new DatabaseSpecificConfigFactory()
 				.getArangoDataBaseConfigurationForName(database);
 		ArangoDatabase db = config.arango().build().db(database);
@@ -63,26 +48,9 @@ public class LexVertexService {
 		Map<String, Object> bindVars = new HashMap<String, Object>();
 		bindVars.put("id", collectionName + "/" + code);
 		bindVars.put("graph", graphEntity.name());
-		try {
-			return config.arangoTemplate().query(OUTBOUND_EDGES, bindVars, null, LexVertex.class).asListRemaining();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		} finally {
-			if (config != null) {
-				try {
-					config.arangoTemplate().driver().shutdown();
-				} catch (ArangoDBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
+		List<LexVertex> list = config.arangoTemplate().query(OUTBOUND_EDGES, bindVars, null, LexVertex.class).asListRemaining();
+		config.arangoTemplate().driver().shutdown();
+		return list;
 	}
 
 }

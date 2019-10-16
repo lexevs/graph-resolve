@@ -1,13 +1,11 @@
 package org.lexgrid.lexgraph.error;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.lexgrid.lexgraph.exception.GraphDbNotFoundException;
-import org.lexgrid.lexgraph.exception.VertexNotFoundException;
+import org.lexgrid.lexgraph.exception.LexArangonDataAccessException;
 import org.lexgrid.lexgraph.exception.SystemMetadataNotFoundException;
+import org.lexgrid.lexgraph.exception.VertexNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -52,6 +50,18 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         errors.setStatus(HttpStatus.NOT_FOUND.value());
         
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+
+    }
+    
+    @ExceptionHandler(LexArangonDataAccessException.class)
+    public ResponseEntity<CustomErrorResponse> customDataAccessExceptin(Exception ex, WebRequest request) {
+
+        CustomErrorResponse errors = new CustomErrorResponse();
+        errors.setTimestamp(LocalDateTime.now());
+        errors.setError(ex.getMessage());
+        errors.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        
+        return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 }
