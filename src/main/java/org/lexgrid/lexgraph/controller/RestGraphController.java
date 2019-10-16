@@ -8,6 +8,7 @@ import org.lexgrid.lexgraph.exception.LexArangonDataAccessException;
 import org.lexgrid.lexgraph.exception.SystemMetadataNotFoundException;
 import org.lexgrid.lexgraph.exception.VertexNotFoundException;
 import org.lexgrid.lexgraph.model.GraphDatabase;
+import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
 import org.lexgrid.lexgraph.model.LexVertex;
 import org.lexgrid.lexgraph.model.SystemMetadata;
 import org.lexgrid.lexgraph.service.LexVertexService;

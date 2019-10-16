@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.lexgrid.lexgraph.configuration.DatabaseSpecificConfigFactory;
+import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
 import org.lexgrid.lexgraph.model.LexVertex;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,11 @@ import com.arangodb.springframework.config.ArangoConfiguration;
 
 @Service
 public class LexVertexService {
+	
+	@Autowired
+	LexArangoConnectionProperties props;
 
+	
 	static final String INBOUND_EDGES = "FOR v IN 1..10 INBOUND @id GRAPH @graph "
 			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
 
@@ -24,7 +31,7 @@ public class LexVertexService {
 			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
 
 	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database, String graph, String code) throws DataAccessException, Exception {
-		ArangoConfiguration config = new DatabaseSpecificConfigFactory()
+		ArangoConfiguration config = new DatabaseSpecificConfigFactory(props)
 				.getArangoDataBaseConfigurationForName(database);
 		ArangoDatabase db = config.arango().build().db(database);
 		ArangoGraph graphEntity = db.graph(graph);
@@ -39,7 +46,7 @@ public class LexVertexService {
 	}
 
 	public Iterable<LexVertex> resolveAllOutBoundEntitiesForGraphAndRoot(String database, String graph, String code) throws DataAccessException, Exception {
-		ArangoConfiguration config = new DatabaseSpecificConfigFactory()
+		ArangoConfiguration config = new DatabaseSpecificConfigFactory(props)
 				.getArangoDataBaseConfigurationForName(database);
 		ArangoDatabase db = config.arango().build().db(database);
 		ArangoGraph graphEntity = db.graph(graph);
