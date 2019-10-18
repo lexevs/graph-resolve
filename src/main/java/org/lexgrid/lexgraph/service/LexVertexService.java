@@ -24,13 +24,13 @@ public class LexVertexService {
 	LexArangoConnectionProperties props;
 
 	
-	static final String INBOUND_EDGES = "FOR v IN 1..10 INBOUND @id GRAPH @graph "
+	static final String INBOUND_EDGES = "FOR v IN 1..50 INBOUND @id GRAPH @graph "
 			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
 
-	static final String OUTBOUND_EDGES = "FOR v IN 1..10 OUTBOUND @id GRAPH @graph "
+	static final String OUTBOUND_EDGES = "FOR v IN 1..50 OUTBOUND @id GRAPH @graph "
 			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
 
-	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database, String graph, String code) throws DataAccessException, Exception {
+	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database,  String graph, String code) throws DataAccessException, Exception {
 		ArangoConfiguration config = new DatabaseSpecificConfigFactory(props)
 				.getArangoDataBaseConfigurationForName(database);
 		ArangoDatabase db = config.arango().build().db(database);

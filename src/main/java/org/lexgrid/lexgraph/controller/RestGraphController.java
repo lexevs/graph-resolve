@@ -70,7 +70,7 @@ public class RestGraphController {
 	}
 
 	@GetMapping("/getInbound/{database}/{graph}/{code}")
-	public Iterable<LexVertex> getTraversedInboundGraphMembers(@PathVariable @NotNull String database,
+	public Iterable<LexVertex> getTraversedInboundGraphMembers(@PathVariable @NotNull String database, 
 			@PathVariable @NotNull String graph, @PathVariable @NotNull String code) {
 		Iterable<LexVertex> list;
 		try{
