@@ -1,6 +1,8 @@
 package org.lexgrid.lexgraph.configuration;
 
 import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
@@ -13,6 +15,9 @@ import java.util.stream.Stream;
 public class DatabaseSpecificConfigFactory {
 	
 	private LexArangoConnectionProperties configArango;
+	
+	@Autowired
+	private Environment env;
 
 	public DatabaseSpecificConfigFactory(LexArangoConnectionProperties configArango){
 		this.configArango = configArango;
@@ -24,11 +29,13 @@ public class DatabaseSpecificConfigFactory {
 			
 			  @Override
 			  public Builder arango() {;
+			  	String pwd = System.getProperty("pwd");
+			  	if(pwd == null){configArango.getPwd();}
 			    ArangoDB.Builder arango = new ArangoDB.Builder()
 			            .host(configArango.getAddress(), configArango.getPort())
 			            .useProtocol(getProtocolForName(configArango.getProtocol()))
 			            .user(configArango.getUsr())
-			            .password(configArango.getPwd());
+			            .password(pwd);
 			    return arango;
 			  }
 
@@ -47,12 +54,14 @@ public class DatabaseSpecificConfigFactory {
 		class LocalArangoConfig implements ArangoConfig {
 			
 			  @Override
-			  public Builder arango() {;
+			  public Builder arango() {
+				  	String pwd = System.getProperty("pwd");
+				  	if(pwd == null){configArango.getPwd();}
 			    ArangoDB.Builder arango = new ArangoDB.Builder()
 			            .host(configArango.getAddress(), configArango.getPort())
 			            .useProtocol(getProtocolForName(configArango.getProtocol()))
 			            .user(configArango.getUsr())
-			            .password(configArango.getPwd());
+			            .password(pwd);
 			    return arango;
 			  }			
 		};
