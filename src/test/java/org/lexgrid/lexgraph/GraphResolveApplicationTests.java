@@ -1,6 +1,5 @@
 package org.lexgrid.lexgraph;
 
-import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Iterator;
@@ -75,7 +74,7 @@ public class GraphResolveApplicationTests {
 	}
 	
 	@Test
-	public void lexVertexServiceTestQueryInboundSubClassOf() throws DataAccessException, Exception{
+	public void lexVertexServiceTestQueryOutboundSubClassOf() throws DataAccessException, Exception{
 		Iterable<LexVertex> vertexs = graphService.resolveAllOutBoundEntitiesForGraphAndRoot("owl2lexevs", "subClassOf", "C53684");
 		assertThat(vertexs).isNotNull();
 		assertThat(vertexs.iterator().hasNext()).isTrue();
@@ -86,7 +85,7 @@ public class GraphResolveApplicationTests {
 	}
 	
 	@Test
-	public void lexVertexServiceTestQueryInboundConceptInSubset() throws DataAccessException, Exception{
+	public void lexVertexServiceTestQueryOutboundConceptInSubset() throws DataAccessException, Exception{
 		Iterable<LexVertex> vertexs = graphService.resolveAllOutBoundEntitiesForGraphAndRoot("owl2lexevs", "Concept_In_Subset", "C48323");
 		assertThat(vertexs).isNotNull();
 		assertThat(vertexs.iterator().hasNext()).isTrue();
@@ -96,7 +95,7 @@ public class GraphResolveApplicationTests {
 	}
 	
 	@Test
-	public void lexVertexServiceTestQueryINboundConceptInSubset() throws DataAccessException, Exception{
+	public void lexVertexServiceTestQueryInboundConceptInSubset() throws DataAccessException, Exception{
 		Iterable<LexVertex> vertexs = graphService.resolveAllInBoundEntitiesForGraphAndRoot("owl2lexevs", "Concept_In_Subset", "C48323");
 		assertThat(vertexs).isNotNull();
 		Iterator<LexVertex> itr = vertexs.iterator();
