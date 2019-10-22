@@ -1,4 +1,4 @@
-package org.lexgrid.lexgraph.model;
+package org.lexgrid.lexgraph.property;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

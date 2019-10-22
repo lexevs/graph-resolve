@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.lexgrid.lexgraph.configuration.DatabaseSpecificConfigFactory;
-import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
 import org.lexgrid.lexgraph.model.LexVertex;
+import org.lexgrid.lexgraph.property.LexArangoConnectionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;

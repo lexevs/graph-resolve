@@ -1,6 +1,6 @@
 package org.lexgrid.lexgraph.configuration;
 
-import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
+import org.lexgrid.lexgraph.property.LexArangoConnectionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 

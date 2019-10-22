@@ -54,7 +54,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
     
     @ExceptionHandler(LexArangonDataAccessException.class)
-    public ResponseEntity<CustomErrorResponse> customDataAccessExceptin(Exception ex, WebRequest request) {
+    public ResponseEntity<CustomErrorResponse> customDataAccessException(Exception ex, WebRequest request) {
 
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setTimestamp(LocalDateTime.now());

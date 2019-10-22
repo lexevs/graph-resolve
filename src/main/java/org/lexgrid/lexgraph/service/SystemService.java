@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.lexgrid.lexgraph.configuration.DatabaseSpecificConfigFactory;
 import org.lexgrid.lexgraph.model.GraphDatabase;
-import org.lexgrid.lexgraph.model.LexArangoConnectionProperties;
 import org.lexgrid.lexgraph.model.SystemMetadata;
+import org.lexgrid.lexgraph.property.LexArangoConnectionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
