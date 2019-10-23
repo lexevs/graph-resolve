@@ -1,4 +1,4 @@
-package org.lexgrid.lexgraph.controller;
+package org.lexgrid.lexgraph.model;
 
 import java.util.List;
 

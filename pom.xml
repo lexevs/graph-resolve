@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>org.lexgrid.lexgraph</groupId>
 	<artifactId>graph-resolve</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>graph-resolve</name>
 	<description>Terminology Relationship Graph Resolution Service</description>
 
@@ -24,6 +24,11 @@
      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-tomcat</artifactId>
+          <scope>provided</scope>
     </dependency>
     <dependency>
       	<groupId>com.arangodb</groupId>
@@ -41,8 +46,11 @@
 		<artifactId>httpclient</artifactId>
 		<version>4.5.10</version>
 	</dependency>
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency>
   </dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
