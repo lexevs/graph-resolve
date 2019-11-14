@@ -73,16 +73,16 @@ public class GraphResolveApplicationTests {
 		assertThat(itr.hasNext()).isFalse();
 	}
 	
-	@Test
-	public void lexVertexServiceTestQueryOutboundSubClassOf() throws DataAccessException, Exception{
-		Iterable<LexVertex> vertexs = graphService.resolveAllOutBoundEntitiesForGraphAndRoot("owl2lexevs", "subClassOf", "C53684");
-		assertThat(vertexs).isNotNull();
-		assertThat(vertexs.iterator().hasNext()).isTrue();
-		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C3263"))).isTrue();
-		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C27574"))).isTrue();
-		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C3810"))).isTrue();
-		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C61410"))).isFalse();
-	}
+//	@Test
+//	public void lexVertexServiceTestQueryOutboundSubClassOf() throws DataAccessException, Exception{
+//		Iterable<LexVertex> vertexs = graphService.resolveAllOutBoundEntitiesForGraphAndRoot("owl2lexevs", "subClassOf", "C53684");
+//		assertThat(vertexs).isNotNull();
+//		assertThat(vertexs.iterator().hasNext()).isTrue();
+//		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C3263"))).isTrue();
+//		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C27574"))).isTrue();
+//		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C3810"))).isTrue();
+//		assertThat(StreamSupport.stream(vertexs.spliterator(), false).anyMatch(x -> x.getCode().equals("C61410"))).isFalse();
+//	}
 	
 	@Test
 	public void lexVertexServiceTestQueryOutboundConceptInSubset() throws DataAccessException, Exception{
