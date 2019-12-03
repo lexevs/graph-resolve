@@ -95,14 +95,14 @@ public class GraphRestControllerTest {
 		assertThat(json).doesNotContain("C3263");
 	}
 	
-	@Test
-	public void restControllerTestQueryOutboundSubClassOf() throws DataAccessException, Exception{
-		String json = this.restTemplate.getForObject("http://localhost:" + port + "getOutbound/owl2lexevs/subClassOf/C53684", String.class);
-		assertThat(json).isNotNull();
-		assertThat(json).isNotBlank();
-		assertThat(json).contains("C3263","C27574","C3810");
-		assertThat(json).doesNotContain("C61410");
-	}
+//	@Test
+//	public void restControllerTestQueryOutboundSubClassOf() throws DataAccessException, Exception{
+//		String json = this.restTemplate.getForObject("http://localhost:" + port + "getOutbound/owl2lexevs/subClassOf/C53684", String.class);
+//		assertThat(json).isNotNull();
+//		assertThat(json).isNotBlank();
+//		assertThat(json).contains("C3263","C27574","C3810");
+//		assertThat(json).doesNotContain("C61410");
+//	}
 	
 	@Test
 	public void restControllerTestQueryOutboundConceptInSubset() throws DataAccessException, Exception{
@@ -163,5 +163,47 @@ public class GraphRestControllerTest {
 				"HappyPatientWalkingAround","HealthyPatient","CancerPatient",
 				"VerySickPatient","MildlySickPatient","MildlySickCancerPatient",
 				"PatientWithCold", "TotalPerson");
+	}
+	
+	
+	@Test
+	public void restControllerTestQueryInBoundSubClassOfDepthTest()
+			throws DataAccessException, Exception{
+		String json = this.restTemplate.getForObject("http://localhost:" + port + "getInbound/10/owl2lexevs/subClassOf/Disease", String.class);
+		assertThat(json).isNotNull();
+		assertThat(json).isNotBlank();
+
+		assertThat(json).contains("Cold","NeoplasticDisease",
+				"TumorBenign","TumorMalignant");
+	}
+	
+	@Test
+	public void restControllerTestQueryInBoundSubClassOfSmallerDepthTest()
+			throws DataAccessException, Exception{
+		String json = this.restTemplate.getForObject("http://localhost:" + port + "getInbound/1/owl2lexevs/subClassOf/Disease", String.class);
+		assertThat(json).isNotNull();
+		assertThat(json).isNotBlank();
+
+		assertThat(json).contains("Cold","NeoplasticDisease");
+	}
+	
+	@Test
+	public void restControllerTestQueryOutBoundSubClassOfDepthTest()
+			throws DataAccessException, Exception{
+		String json = this.restTemplate.getForObject("http://localhost:" + port + "getOutbound/10/owl2lexevs/subClassOf/NeoplasticDisease", String.class);
+		assertThat(json).isNotNull();
+		assertThat(json).isNotBlank();
+
+		assertThat(json).contains("Disease","DiseasesDisordersFindings");
+	}
+	
+	@Test
+	public void restControllerTestQueryOutBoundSubClassOfSmallerDepthTest()
+			throws DataAccessException, Exception{
+		String json = this.restTemplate.getForObject("http://localhost:" + port + "getOutbound/1/owl2lexevs/subClassOf/NeoplasticDisease", String.class);
+		assertThat(json).isNotNull();
+		assertThat(json).isNotBlank();
+
+		assertThat(json).contains("Disease");
 	}
 }
