@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.lexgrid.lexgraph</groupId>
 	<artifactId>graph-resolve</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>SNAPSHOT.DEV.SPRINT123.2019.12.05</version>
 	<packaging>war</packaging>
 	<name>graph-resolve</name>
 	<description>Terminology Relationship Graph Resolution Service</description>
