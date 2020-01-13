@@ -25,16 +25,16 @@ public class LexVertexService {
 
 	
 	static final String INBOUND_EDGES = "FOR v IN 1..50 INBOUND @id GRAPH @graph "
-			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
+			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace, description: v.description}";
 
 	static final String OUTBOUND_EDGES = "FOR v IN 1..50 OUTBOUND @id GRAPH @graph "
-			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
+			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace, description: v.description}";
 	
 	static final String INBOUND_EDGES_WDEPTH = "FOR v IN 1..#depth INBOUND @id GRAPH @graph "
-			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
+			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace, description: v.description}";
 
 	static final String OUTBOUND_EDGES_WDEPTH = "FOR v IN 1..#depth OUTBOUND @id GRAPH @graph "
-			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace}";
+			+ "OPTIONS {bfs: true, uniqueVertices: 'global'} RETURN " + "{code: v._key, namespace: v.namespace, description: v.description}";
 
 	public Iterable<LexVertex> resolveAllInBoundEntitiesForGraphAndRoot(String database,  String graph, String code) throws DataAccessException, Exception {
 		ArangoConfiguration config = new DatabaseSpecificConfigFactory(props)
