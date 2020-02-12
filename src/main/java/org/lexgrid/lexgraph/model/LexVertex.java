@@ -15,10 +15,13 @@ public class LexVertex {
 		private String revision;
 
 		private String namespace;
+		
+		private String description;
 
-		public LexVertex(final String code, final String namespace) {
+		public LexVertex(final String code, final String namespace, final String description) {
 			this.code = code;
 			this.namespace = namespace;
+			this.description = description;
 		}
 
 		/**
@@ -75,6 +78,20 @@ public class LexVertex {
 		 */
 		public void setNamespace(String namespace) {
 			this.namespace = namespace;
+		}
+
+		/**
+		 * @return the description
+		 */
+		public String getDescription() {
+			return description;
+		}
+
+		/**
+		 * @param description the description to set
+		 */
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 	}
